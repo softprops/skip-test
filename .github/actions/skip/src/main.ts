@@ -24,7 +24,7 @@ async function run() {
       conclusion
     });
 
-    console.log(JSON.stringify(checkUpdateResponse.data, null, 4));
+    console.log(JSON.stringify(checkUpdateResponse, null, 4));
   } catch (error) {
     setFailed(error.message);
   }

@@ -34,7 +34,7 @@ function run() {
                 repo,
                 conclusion
             });
-            console.log(JSON.stringify(checkUpdateResponse.data, null, 4));
+            console.log(JSON.stringify(checkUpdateResponse, null, 4));
         }
         catch (error) {
             core_1.setFailed(error.message);
