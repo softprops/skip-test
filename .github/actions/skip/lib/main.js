@@ -10,10 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@actions/core");
+const github_1 = require("@actions/github");
+const process_1 = require("process");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log("hello");
+            console.log(`hello ${process_1.env.GITHUB_REPOSITORY} ${process_1.env.GITHUB_SHA} ${process_1.env.GITHUB_WORKFLOW}`);
+            const gh = new github_1.GitHub(process_1.env.GITHUB_TOKEN || "");
+            //gh.checks.
         }
         catch (error) {
             core_1.setFailed(error.message);
