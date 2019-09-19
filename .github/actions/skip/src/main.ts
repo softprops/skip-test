@@ -4,16 +4,27 @@ import { env } from "process";
 
 async function run() {
   try {
-    console.log(`hello ${env.GITHUB_REPOSITORY} ${env.GITHUB_SHA} ${env.GITHUB_WORKFLOW}`);
+    console.log(`hello ${env.GITHUB_REPOSITORY} ${env.GITHUB_SHA}`);
     const gh = new GitHub(env.GITHUB_TOKEN || "");
     const [owner, repo] = (env.GITHUB_REPOSITORY || "").split("/");
     const ref = env.GITHUB_SHA || "";
+    const status = "in_progress";
     let checksResponse = await gh.checks.listForRef({
       owner,
       repo,
-      ref
+      ref,
+      status
     });
-    console.log(JSON.stringify(checksResponse.data));
+    const check_run_id = checksResponse.data.check_runs.map(run => run.id)[0];
+    const conclusion = "neutral";
+    let checkUpdateResponse = await gh.checks.update({
+      check_run_id,
+      owner,
+      repo,
+      conclusion
+    });
+
+    console.log(JSON.stringify(checkUpdateResponse.data, null, 4));
   } catch (error) {
     setFailed(error.message);
   }

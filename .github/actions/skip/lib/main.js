@@ -15,16 +15,26 @@ const process_1 = require("process");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(`hello ${process_1.env.GITHUB_REPOSITORY} ${process_1.env.GITHUB_SHA} ${process_1.env.GITHUB_WORKFLOW}`);
+            console.log(`hello ${process_1.env.GITHUB_REPOSITORY} ${process_1.env.GITHUB_SHA}`);
             const gh = new github_1.GitHub(process_1.env.GITHUB_TOKEN || "");
             const [owner, repo] = (process_1.env.GITHUB_REPOSITORY || "").split("/");
             const ref = process_1.env.GITHUB_SHA || "";
+            const status = "in_progress";
             let checksResponse = yield gh.checks.listForRef({
                 owner,
                 repo,
-                ref
+                ref,
+                status
             });
-            console.log(JSON.stringify(checksResponse.data));
+            const check_run_id = checksResponse.data.check_runs.map(run => run.id)[0];
+            const conclusion = "neutral";
+            let checkUpdateResponse = yield gh.checks.update({
+                check_run_id,
+                owner,
+                repo,
+                conclusion
+            });
+            console.log(JSON.stringify(checkUpdateResponse.data, null, 4));
         }
         catch (error) {
             core_1.setFailed(error.message);
