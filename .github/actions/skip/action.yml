@@ -1,0 +1,11 @@
+name: 'skip'
+description: 'G...'
+author: 'softprops'
+env:
+  'GITHUB_TOKEN': 'As provided by Github Actions'
+runs:
+  using: 'node12'
+  main: 'lib/main.js'
+branding:
+  color: 'green'
+  icon: 'package'
