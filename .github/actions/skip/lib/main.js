@@ -17,7 +17,14 @@ function run() {
         try {
             console.log(`hello ${process_1.env.GITHUB_REPOSITORY} ${process_1.env.GITHUB_SHA} ${process_1.env.GITHUB_WORKFLOW}`);
             const gh = new github_1.GitHub(process_1.env.GITHUB_TOKEN || "");
-            //gh.checks.
+            const [owner, repo] = (process_1.env.GITHUB_REPOSITORY || "").split("/");
+            const ref = process_1.env.GITHUB_SHA || "";
+            let checksResponse = yield gh.checks.listForRef({
+                owner,
+                repo,
+                ref
+            });
+            console.log(checksResponse.data);
         }
         catch (error) {
             core_1.setFailed(error.message);

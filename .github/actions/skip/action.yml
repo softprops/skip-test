@@ -1,5 +1,5 @@
 name: 'skip'
-description: 'G...'
+description: '...'
 author: 'softprops'
 env:
   'GITHUB_TOKEN': 'As provided by Github Actions'
