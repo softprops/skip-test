@@ -13,7 +13,7 @@ async function run() {
       repo,
       ref
     });
-    console.log(checksResponse.data);
+    console.log(JSON.stringify(checksResponse.data));
   } catch (error) {
     setFailed(error.message);
   }
