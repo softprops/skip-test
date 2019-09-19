@@ -21,7 +21,8 @@ async function run() {
       check_run_id,
       owner,
       repo,
-      conclusion
+      conclusion,
+      status: "completed"
     });
 
     console.log(JSON.stringify(checkUpdateResponse, null, 4));
